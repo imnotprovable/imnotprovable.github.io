@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: sans-serif;
+  }
+  
+  canvas {
+    display: block;
+  }
+  
+  #saveBtn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 10;
+  }
+  

@@ -17,7 +17,7 @@ let colors = [
 ];
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(windowWidth, windowHeight);
     noLoop(); // Only draw once
     generateArt();
 }
@@ -27,8 +27,8 @@ function generateArt() {
     stroke('#333333');
   
     let size = 32.0;
-    let n = int(width / size);
-    let m = int(height / size);
+    let n = int(width / size)-1;
+    let m = int(height / size)-1;
     
     let start_x = 0.0;
     let start_y = 0.0;
@@ -36,11 +36,11 @@ function generateArt() {
     let ramt_offset = 12.25;
     let damt_offset = 2.02;
     
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < m; i++) {
       if (random() > 0.96)
         continue;
         
-      for (let j = 0; j < m; j++) {
+      for (let j = 0; j < n; j++) {
         if (random() > 0.92)
           continue;
         

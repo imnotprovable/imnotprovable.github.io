@@ -37,6 +37,19 @@
   <body>
     <button id="saveBtn">🎨 💾</button>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
-    <script src="uno.js" defer></script>
+    <!--<script src="due.js" defer></script>-->
+    <script>
+      // Randomly select which script to load
+      const scripts = ['uno.js', 'due.js'];
+      const selectedScript = scripts[Math.floor(Math.random() * scripts.length)];
+      
+      // Dynamically load the selected script
+      const scriptElement = document.createElement('script');
+      scriptElement.src = selectedScript;
+      scriptElement.defer = true;
+      document.body.appendChild(scriptElement);
+      
+      console.log('Loading script:', selectedScript); // For debugging
+  </script>
   </body>
 </html>

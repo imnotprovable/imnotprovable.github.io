@@ -1,5 +1,5 @@
 let colors = [
-  "#8eb1c7", // soft blue
+  /*"#8eb1c7", // soft blue
   "#b02e0c", // dark red
   "#eb4511", // bright orange-red
   "#c1bfb5", // light gray
@@ -13,7 +13,14 @@ let colors = [
   "#d90368", // magenta
   "#f1e9da", // cream
   "#2e294e", // dark purple
-  "#ffd400"  // golden yellow
+  "#ffd400"  // golden yellow*/
+  '#ffc500',
+  '#5dffea',
+  '#ff4e52',
+  '#c589fc',
+  '#83c6f7',
+  '#ff6a00',
+  '#fefdff' // near white
 ];
 
 function setup() {
@@ -33,8 +40,8 @@ function generateArt() {
     let start_x = 0.0;
     let start_y = 0.0;
   
-    let ramt_offset = 12.25;
-    let damt_offset = 2.02;
+    let ramt_offset = 3.55 + random() * 62.25;
+    let damt_offset = 0.01 + random() * 2.02;
     
     for (let i = 0; i < m; i++) {
       if (random() > 0.96)
@@ -47,7 +54,7 @@ function generateArt() {
         let pm_rot = random() < 0.5 ? -1 : 1;
         let pm_dis = random() < 0.5 ? -1 : 1;
         
-        let ramt = (n - i) / size * PI / 180.0 * pm_rot * random() * ramt_offset;
+        let ramt = (m - i) / size * PI / 180.0 * pm_rot * random() * ramt_offset;
         let damt = i / size * pm_dis * random() * damt_offset;
 
         let px = size + (size * j) + damt;
@@ -78,15 +85,15 @@ function generateArt() {
         
         // Set stroke properties
         stroke('#333333');
-        strokeWeight(random(0.85, 1.76));
+        strokeWeight(random(0.34, 1.76));
         rect(0, 0, size, size);
         
-        // add a little one in case
+        /*// add a little one in case
         if (random() >= 0.97) {
           stroke(color(0, 0, 0, random(0.1, 0.8) * 255));
           noFill();
           rect(8+random() * 25, 8+random() * 25, 8, 8);
-        }
+        }*/
 
         pop();
       }

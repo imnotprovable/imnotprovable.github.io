@@ -40,8 +40,8 @@ function generateArt() {
     let n = int(width / size) - 1;
     let m = int(height / size) - 1;
     
-    let bound_fill = random() < 0.01 ? 77 : random(5, 15);
-    let bound_stroke = random() < 0.01 ? 65 : random(2, 20);
+    let bound_fill = random() < 0.01 ? 77 : random(2, 15);
+    let bound_stroke = random() < 0.01 ? 65 : random(3, 20);
 
     let rnd_bound_fill = random(1, bound_fill);
     let rnd_bound_stroke = random(1, bound_stroke);
@@ -64,6 +64,7 @@ function generateArt() {
             // stroke
             noFill();
             stroke(random([...colors]));
+            strokeWeight(0.88 + random() * 1.2);
             beginShape(QUADS);
                 vertex(px + random(-rnd_bound_stroke,rnd_bound_stroke), py + random(-rnd_bound_stroke,rnd_bound_stroke));
                 vertex(px + ssize + random(-rnd_bound_stroke,rnd_bound_stroke), py + random(-rnd_bound_stroke,rnd_bound_stroke));
@@ -79,8 +80,23 @@ function windowResized() {
   generateArt(); // regenerate on resize
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("saveBtn").addEventListener("click", () => {
     saveCanvas("limen-imnotprovable-due", "png");
   });
-});
+});*/
+
+function setupSaveButton() {
+    const saveBtn = document.getElementById("saveBtn");
+    if (saveBtn) {
+        saveBtn.onclick = () => {
+            saveCanvas("imnotprovable-due", "png");
+        };
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupSaveButton);
+} else {
+    setupSaveButton();
+}

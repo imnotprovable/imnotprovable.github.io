@@ -105,8 +105,23 @@ function windowResized() {
   generateArt(); // regenerate on resize
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("saveBtn").addEventListener("click", () => {
     saveCanvas("limen-imnotprovable-uno", "png");
   });
-});
+});*/
+
+function setupSaveButton() {
+    const saveBtn = document.getElementById("saveBtn");
+    if (saveBtn) {
+        saveBtn.onclick = () => {
+            saveCanvas("imnotprovable-uno", "png");
+        };
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupSaveButton);
+} else {
+    setupSaveButton();
+}

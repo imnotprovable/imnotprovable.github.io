@@ -20,7 +20,8 @@ let colors = [
   '#c589fc',
   '#83c6f7',
   '#ff6a00',
-  '#fefdff' // near white
+  '#fefdff', // near white
+  '#3f3f3f'
 ];
 
 function setup() {
@@ -36,11 +37,14 @@ function generateArt() {
     let size = 33;
     let offset = 8;
     let ssize = size - offset;
-    let n = int(width / size) - 2;
-    let m = int(height / size) - 2;
+    let n = int(width / size) - 1;
+    let m = int(height / size) - 1;
     
-    let rnd_bound_fill = random(1, 46);
-    let rnd_bound_stroke = random(1, 46);
+    let bound_fill = random() < 0.01 ? 77 : random(5, 15);
+    let bound_stroke = random() < 0.01 ? 65 : random(2, 20);
+
+    let rnd_bound_fill = random(1, bound_fill);
+    let rnd_bound_stroke = random(1, bound_stroke);
 
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
@@ -59,7 +63,7 @@ function generateArt() {
             
             // stroke
             noFill();
-            stroke(random(colors));
+            stroke(random([...colors]));
             beginShape(QUADS);
                 vertex(px + random(-rnd_bound_stroke,rnd_bound_stroke), py + random(-rnd_bound_stroke,rnd_bound_stroke));
                 vertex(px + ssize + random(-rnd_bound_stroke,rnd_bound_stroke), py + random(-rnd_bound_stroke,rnd_bound_stroke));

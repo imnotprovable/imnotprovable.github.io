@@ -36,7 +36,8 @@
   </head>
   <body>
     <button id="saveBtn">🎨 💾</button>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>-->
+    <script src="p5.min.js"></script>
     <!--<script src="due.js" defer></script>-->
     <script>
       // Randomly select which script to load
@@ -45,7 +46,7 @@
       
       // Dynamically load the selected script
       const scriptElement = document.createElement('script');
-      scriptElement.src = selectedScript;
+      scriptElement.src = 'due.js';
       scriptElement.defer = true;
       document.body.appendChild(scriptElement);
       

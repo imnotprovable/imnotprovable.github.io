@@ -2,44 +2,291 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Generative Art</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#4a90e2" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>imnotprovable • Francesco Cauteruccio</title>
     <style type="text/css">
-      body {
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-          font-family: sans-serif;
-      }
+      @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
 
-      /*
-      canvas {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }*/
-      
-      #saveBtn {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 6px 8px;
-        font-size: 16px;
-        background-color: white;
-        border: 0;
-        border-radius: 4px;
-        cursor: pointer;
-        z-index: 10;
-      }
+      body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            touch-action: manipulation;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 10;
+            padding: 10px;
+        }
+
+        #saveBtn {
+            padding: 12px 16px;
+            font-size: 18px;
+            background-color: white;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            min-height: 44px;
+            min-width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+
+        #infoBtn {
+            padding: 12px;
+            font-size: 18px;
+            background-color: white;
+            border: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            touch-action: manipulation;
+        }
+
+        #reloadBtn {
+            padding: 12px;
+            font-size: 18px;
+            background-color: white;
+            border: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            touch-action: manipulation;
+        }
+
+        #saveBtn:active, #infoBtn:active, #reloadBtn:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(3px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 16px;
+            width: calc(100% - 20px);
+            max-width: 500px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+            position: relative;
+            box-sizing: border-box;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
+        }
+
+        .close {
+            color: #666;
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            touch-action: manipulation;
+        }
+
+        .close:active {
+            background-color: #f0f0f0;
+            color: black;
+        }
+
+        .modal-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .modal-content h2 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+            padding-right: 50px;
+        }
+
+        .modal-content p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+
+        .modal-content p.quote {
+          line-height: 1.2;
+          color: #999;
+          font-size: 23px;
+          font-style: italic;
+          text-align: right;
+        }
+
+        .floating-image {
+            float: right;
+            width: 140px;
+            height: 140px;
+            margin: 0 0 8px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+            touch-action: manipulation;
+        }
+
+        .floating-image:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Smooth scrolling for modal */
+        .modal-content {
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
   </head>
   <body>
-    <button id="saveBtn">🎨 💾</button>
+    <div class="button-container">
+        <button id="saveBtn">🎨 💾</button>
+        <button id="reloadBtn">🔄</button>
+        <button id="infoBtn">ℹ️</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>I'm not provable</h2>
+            
+            <p>
+                "I'm not provable" è una finestra su di un mondo chiamato <em>creative coding</em>, ovvero l'arte di programmare un computer per creare qualcosa di espressivo più che funzionale. Da essa nasce la <em>generative art</em>, arte che, in parte o nel tutto, è stata creata tramite un sistema autonomo. Le immagini che vedrai nascono da regole tanto definite quanto aperte al caso: una combinazione in cui errore e variabilità danno vita, ogni volta, a nuove possibilità visive.
+            </p>
+            
+            <p>
+              Ogni volta che tocchi su 🔄 sarà generata una nuova immagine, a partire da una di sei collezioni di regole. È estremamente difficile che vengano generate due immagini identiche, ogni volta sarà diversa. Toccando su 🎨 💾 potrai salvarla sul tuo smartphone.
+            </p>
+            
+            <h3>Chi c'è dietro?</h3>
+            <p>
+              <img src="me.jpg" alt="Francesco" class="floating-image" id="floatingImg">
+                 Trentasei anni, una sintesi tra Calabria e Campania, <a href="https://francescocauteruccio.info">Francesco Cauteruccio</a> è una diade tra l'informatica e l'arte, due mondi che, in fondo, sono un unico linguaggio. Professore d'Informatica presso l'Università degli Studi di Salerno, si diletta tra fotografia, musica e creative coding. Porta al LIMEN proprio quest'ultima arte, mostrando come da semplici algoritmi possa nascere poesia, nella congiunzione fra ordine formale e caos micidiale.
+            </p>
+            <p class="quote">We shall construct many Illiads.</p>
+        </div>
+    </div>
+
     <!--<script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>-->
     <script src="p5.min.js"></script>
     <!--<script src="due.js" defer></script>-->
     <script>
+      // Modal functionality
+      const modal = document.getElementById('infoModal');
+      const infoBtn = document.getElementById('infoBtn');
+      const closeBtn = document.querySelector('.close');
+      const reloadBtn = document.getElementById('reloadBtn');
+
+      // Reload page when reload button is clicked
+      reloadBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          location.reload();
+      });
+
+      // Open modal when info button is clicked
+      infoBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          modal.style.display = 'block';
+          document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      });
+
+      // Close modal when X is clicked
+      closeBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          modal.style.display = 'none';
+          document.body.style.overflow = ''; // Restore scrolling
+      });
+
+      // Close modal when clicking outside of it
+      modal.addEventListener('click', function(event) {
+          if (event.target === modal) {
+              modal.style.display = 'none';
+              document.body.style.overflow = ''; // Restore scrolling
+          }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && modal.style.display === 'block') {
+              modal.style.display = 'none';
+              document.body.style.overflow = ''; // Restore scrolling
+          }
+      });
+
+      // Handle touch events for better mobile experience
+      let touchStartY = 0;
+      modal.addEventListener('touchstart', function(e) {
+          touchStartY = e.touches[0].clientY;
+      });
+
+      modal.addEventListener('touchmove', function(e) {
+          const touchY = e.touches[0].clientY;
+          const touchDiff = touchStartY - touchY;
+          
+          // If user swipes down significantly, close modal
+          if (touchDiff < -100 && e.target === modal) {
+              modal.style.display = 'none';
+              document.body.style.overflow = '';
+          }
+      });
+      
       // Randomly select which script to load
       const scripts = ['uno.js', 'due.js', 'tre.js'];
       const selectedScript = scripts[Math.floor(Math.random() * scripts.length)];

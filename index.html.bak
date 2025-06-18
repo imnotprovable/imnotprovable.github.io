@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#4a90e2" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>imnotprovable • Francesco Cauteruccio</title>
+    <style type="text/css">
+      body {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          font-family: sans-serif;
+      }
+
+      /*
+      canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }*/
+      
+      #saveBtn {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 6px 8px;
+        font-size: 16px;
+        background-color: white;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+        z-index: 10;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="saveBtn">🎨 💾</button>
+    <!--<script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.min.js"></script>-->
+    <script src="p5.min.js"></script>
+    <!--<script src="due.js" defer></script>-->
+    <script>
+      // Randomly select which script to load
+      const scripts = ['uno.js', 'due.js', 'tre.js'];
+      const selectedScript = scripts[Math.floor(Math.random() * scripts.length)];
+      
+      // Dynamically load the selected script
+      const scriptElement = document.createElement('script');
+      scriptElement.src = selectedScript;
+      scriptElement.defer = true;
+      document.body.appendChild(scriptElement);
+      
+      console.log('Loading script:', selectedScript); // For debugging
+  </script>
+  </body>
+</html>

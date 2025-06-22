@@ -10,11 +10,11 @@ let gridSize;
             createCanvas(windowWidth, windowHeight);
             colorMode(HSB, 360, 100, 100, 100);
             
-            gridSize = random(120, 500);
+            gridSize = random(120, 180);
             if (windowWidth > windowHeight)
-                circleRadius = random(min(320.0, windowHeight/4), max(windowHeight/2, 450.0));
+                circleRadius = random(min(320.0, windowHeight/4), max(windowHeight/3, 450.0));
             else
-                circleRadius = random(min(320.0, windowWidth/4), max(windowWidth/2, 450.0));
+                circleRadius = random(min(320.0, windowWidth/4), max(windowWidth/3, 450.0));
             point_or_line = random();
             
             // Generate a subtle color palette

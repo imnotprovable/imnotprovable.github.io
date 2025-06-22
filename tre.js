@@ -10,6 +10,7 @@ function hex2rgb(hex) {
 let colors = [];
 let hasDrawn = false;
 let frameCounter = 0;
+let minSize = 0.50;
 
 function setup() {
     let canvas = createCanvas(windowWidth, windowHeight, P2D);
@@ -43,6 +44,8 @@ function generateArt() {
     let ssize = size - offset;
     let m = int(winX / size) - 1;
     let n = int(winY / size) - 2;
+
+    minSize = random(0.35, 0.75);
 
     console.log(n);
     console.log(m);
@@ -80,22 +83,21 @@ function generateArt() {
         
         if (random() > 0.05) {
             if (random() < 0.001)
-                strokeW = 24.21;
+                strokeW = 14.21;
 
             let currSize = size;
-            if (random() < 0.25) {
-                currSize = size - (size * random(0.15, 0.65));
-            }
+            if (random() <= 0.5)
+                currSize = random(currSize*minSize, currSize*0.9);
             
             let currPx = canvasPx;
             let currPy = canvasPy;
             
             if (random() < 0.15) {
-                currPx += random(-5, 5);
-                currPy += random(-5, 5);
+                currPx += random(-10, 10);
+                currPy += random(-10, 10);
             }
             
-            if (random() >= 0.05) {
+            if (random() < 0.95) {
                 // Draw transparent circle with colored stroke
                 fill(255, 255, 255, 0); // transparent fill
                 stroke(strokeC[0], strokeC[1], strokeC[2]);
@@ -133,7 +135,7 @@ function setupSaveButton() {
     const saveBtn = document.getElementById("saveBtn");
     if (saveBtn) {
         saveBtn.onclick = () => {
-            saveCanvas("imnotprovable-due", "png");
+            saveCanvas("imnotprovable-tre", "png");
         };
     }
 }

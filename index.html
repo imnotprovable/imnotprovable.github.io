@@ -34,7 +34,7 @@
         }
 
         #saveBtn {
-            padding: 12px 16px;
+            padding: 12px;
             font-size: 18px;
             background-color: white;
             border: 0;
@@ -54,10 +54,10 @@
             font-size: 18px;
             background-color: white;
             border: 0;
-            border-radius: 50%;
+            border-radius: 8px;
             cursor: pointer;
-            width: 44px;
-            height: 44px;
+            min-height: 44px;
+            min-width: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -159,7 +159,7 @@
             line-height: 1.6;
             color: #555;
             margin-bottom: 16px;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .modal-content p.quote {
@@ -196,7 +196,7 @@
   </head>
   <body>
     <div class="button-container">
-        <button id="saveBtn">🎨 💾</button>
+        <button id="saveBtn">💾</button>
         <button id="reloadBtn">🔄</button>
         <button id="infoBtn">ℹ️</button>
     </div>
@@ -208,11 +208,11 @@
             <h2>I'm not provable</h2>
             
             <p>
-                "I'm not provable" è una finestra su di un mondo chiamato <em>creative coding</em>, ovvero l'arte di programmare un computer per creare qualcosa di espressivo più che funzionale. Da essa nasce la <em>generative art</em>, arte che, in parte o nel tutto, è stata creata tramite un sistema autonomo. Le immagini che vedrai nascono da regole tanto definite quanto aperte al caso: una combinazione in cui errore e variabilità danno vita, ogni volta, a nuove possibilità visive.
+                "<a href="https://instagram.com/imnotprovable">I'm not provable</a>" è una finestra su di un mondo chiamato <em>creative coding</em>, ovvero l'arte di programmare un computer per creare qualcosa di espressivo più che funzionale. Da essa nasce la <em>generative art</em>, arte che, in parte o nel tutto, è stata creata tramite un sistema autonomo. Le immagini che vedrai nascono da regole tanto definite quanto aperte al caso: una combinazione in cui errore e variabilità danno vita, ogni volta, a nuove possibilità visive.
             </p>
             
             <p>
-              Ogni volta che tocchi su 🔄 sarà generata una nuova immagine, a partire da una di sei collezioni di regole. È estremamente difficile che vengano generate due immagini identiche, ogni volta sarà diversa. Toccando su 🎨 💾 potrai salvarla sul tuo smartphone.
+              Ogni volta che tocchi su 🔄 sarà generata una nuova immagine, a partire da una di sei collezioni di regole. È estremamente difficile che vengano generate due immagini identiche, ogni volta sarà diversa. Toccando su 💾 potrai salvarla sul tuo smartphone.
             </p>
             
             <h3>Chi c'è dietro?</h3>
@@ -288,7 +288,7 @@
       });
       
       // Randomly select which script to load
-      const scripts = ['uno.js', 'due.js', 'tre.js'];
+      const scripts = ['uno.js', 'due.js', 'tre.js', 'quattro.js', 'quattro-bis.js', 'cinque.js'];
       const selectedScript = scripts[Math.floor(Math.random() * scripts.length)];
       
       // Dynamically load the selected script

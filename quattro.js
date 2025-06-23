@@ -38,11 +38,12 @@ let isGenerated = false;
 function setup() {
     createCanvas(windowWidth, windowHeight);
     let constellationSize = 80.0;
+    let gridSpacing = 12.0;
     config = {
         constellationSize: constellationSize,
-        gridRows: (windowHeight / constellationSize) - 1,
-        gridCols: (windowWidth / constellationSize) - 1,
-        gridSpacing: 12.0,
+        gridRows: (windowHeight / (constellationSize + gridSpacing)) - 1,
+        gridCols: (windowWidth / (constellationSize + gridSpacing)) - 1,
+        gridSpacing: gridSpacing,
         minStars: 4,
         maxStars: 45,
         minConnections: random(1,3),
@@ -52,6 +53,9 @@ function setup() {
         edgeMinWeight: 0.5,
         edgeMaxWeight: 3.5
     };
+
+    console.log(config.gridRows);
+    console.log(config.gridCols);
 
     background(0);
     generateConstellations();
@@ -69,15 +73,21 @@ function generateConstellations() {
     constellations = [];
     
     // Calculate grid positioning
-    const totalWidth = config.gridCols * (config.constellationSize + config.gridSpacing) - config.gridSpacing;
+    /*const totalWidth = config.gridCols * (config.constellationSize + config.gridSpacing) - config.gridSpacing;
     const totalHeight = config.gridRows * (config.constellationSize + config.gridSpacing) - config.gridSpacing;
     
     const startX = (width - totalWidth - config.constellationSize - config.gridSpacing) + config.constellationSize - config.gridSpacing - (config.gridSpacing/2);
-    const startY = (height - totalHeight - config.constellationSize + (config.gridSpacing * 1.5));
+    const startY = (height - totalHeight - config.constellationSize + (config.gridSpacing * 1.5));*/
+
+    const totalWidth = config.gridCols * (config.constellationSize + (config.gridSpacing - 1));
+    const totalHeight = config.gridRows * (config.constellationSize + (config.gridSpacing - 1));
+    
+    const startX = (width - totalWidth) - (config.constellationSize / 2) - config.gridSpacing;
+    const startY = (height - totalHeight) - (config.constellationSize / 2) - config.gridSpacing;
     
     // Create grid of constellations
-    for (let row = 0; row < config.gridRows; row++) {
-        for (let col = 0; col < config.gridCols; col++) {
+    for (let row = 0; row < config.gridRows-1; row++) {
+        for (let col = 0; col < config.gridCols-1; col++) {
             const x = startX + col * (config.constellationSize + config.gridSpacing) + config.constellationSize / 2;
             const y = startY + row * (config.constellationSize + config.gridSpacing) + config.constellationSize / 2;
             
@@ -252,7 +262,7 @@ function regenerateConstellations() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  generateArt(); // regenerate on resize
+  regenerateConstellations(); // regenerate on resize
 }
 
 /*document.addEventListener("DOMContentLoaded", () => {

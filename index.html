@@ -33,10 +33,12 @@
             padding: 10px;
         }
 
-        #saveBtn {
+        #saveBtn,#artworkBtn {
             padding: 12px;
             font-size: 18px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             border: 0;
             border-radius: 8px;
             cursor: pointer;
@@ -52,7 +54,9 @@
         #infoBtn {
             padding: 12px;
             font-size: 18px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             border: 0;
             border-radius: 8px;
             cursor: pointer;
@@ -68,7 +72,9 @@
         #reloadBtn {
             padding: 12px;
             font-size: 18px;
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             border: 0;
             border-radius: 50%;
             cursor: pointer;
@@ -197,8 +203,19 @@
   <body>
     <div class="button-container">
         <button id="saveBtn">💾</button>
+        <button id="artworkBtn">🎨</button>
         <button id="reloadBtn">🔄</button>
         <button id="infoBtn">ℹ️</button>
+    </div>
+
+    <div id="artworkModal" class="modal">
+        <div class="modal-content">
+            <span class="close artwork-close">&times;</span>
+            <h2 id="artworkTitle">About this Artwork</h2>
+            <div id="artworkContent">
+                <!-- Content will be populated dynamically based on selected script -->
+            </div>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -232,12 +249,36 @@
       const modal = document.getElementById('infoModal');
       const infoBtn = document.getElementById('infoBtn');
       const closeBtn = document.querySelector('.close');
+      const artworkModal = document.getElementById('artworkModal');
       const reloadBtn = document.getElementById('reloadBtn');
+      const artworkCloseBtn = document.querySelector('.artwork-close');
 
       // Reload page when reload button is clicked
       reloadBtn.addEventListener('click', function(e) {
           e.preventDefault();
           location.reload();
+      });
+
+      // Open artwork modal when artwork button is clicked
+      artworkBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          artworkModal.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+      });
+
+      // Close artwork modal when X is clicked
+      artworkCloseBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          artworkModal.style.display = 'none';
+          document.body.style.overflow = '';
+      });
+
+      // Close artwork modal when clicking outside of it
+      artworkModal.addEventListener('click', function(event) {
+          if (event.target === artworkModal) {
+              artworkModal.style.display = 'none';
+              document.body.style.overflow = '';
+          }
       });
 
       // Open modal when info button is clicked
@@ -288,8 +329,68 @@
       });
       
       // Randomly select which script to load
-      const scripts = ['quattro.js', 'quattro-bis.js'];
+      const scripts = ['uno.js', 'due.js', 'quattro.js', 'quattro-bis.js', 'cinque.js'];
       const selectedScript = scripts[Math.floor(Math.random() * scripts.length)];
+
+      // Define artwork information for each script
+      const artworkInfo = {
+        'uno.js': {
+          title: 'vademecum per tremare insieme (2021)',
+          content: `
+            <p>
+                La griglia contiene una serie di figure quadrate, ruotate in modo randomico rispetto alla posizione sull’asse verticale. Per errore, una singola figura, gruppi di figure, o intere popolazioni non riescono ad emergere, lasciando una sezione vuota.
+            </p>
+          `
+        },
+        'due.js': {
+          title: 'Al di là del mare regna un\'isola (2025)',
+          content: `
+            <p>
+                Ogni cella di questa griglia adattiva contiene una figura quadrata composta da un corpo e un bordo. Le loro dimensioni vengono, per errore, modificate affinché uno non possa essere possibilmente contenuto nell’altro.
+            </p>
+          `
+        },
+        'tre.js': {
+            title: 'We shall construct many Illiads (2020)',
+            content: `<p>Una serie di punti viene distribuita su di una griglia rettangolare. Dal centro di ogni cella nasce una serie di cerchi concentrici, la cui dimensione e colore varia secondo un rumore randomico; per errore, la posizione dei punti può non essere uniforme.</p>`
+        },
+        'quattro.js': {
+          title: 'Should we have connected? (#2, 2025)',
+          content: `
+            <p>
+                Si posiziona in una griglia 5x5 una serie di costellazioni; ogni stella, parte della costellazione, ha un numero minimo e massimo di connessioni verso altre stelle più vicine; ad ogni costellazione è associato un gradiente omogeno di colori.
+            </p>
+          `
+        },
+        'quattro-bis.js': {
+          title: 'Should we have connected? (#4, 2025)',
+          content: `
+            <p>
+                Si posiziona in una griglia 5x5 una serie di costellazioni; ogni stella, parte della costellazione, ha un numero minimo e massimo di connessioni verso altre stelle più vicine; ad ogni costellazione è associato un gradiente omogeno di colori. In questa variante, tutte le stelle in una costellazione seguono un pattern più o meno oscillatorio.
+            </p>
+          `
+        },
+        'cinque.js': {
+          title: 'oltrel\'arte (2025)',
+          content: `
+            <p>
+                Una serie di punti vengono posizionati in una griglia quadrata, la quale viene mascherata da un cerchio che impedisce la visione di ciò che sta al di fuori della sua circonferenza. I punti seguono un moto randomico dettato da un particolare tipo di rumore; nella loro evoluzione, i punti tenderanno a creare organicamente dei flussi in cui concentrarsi. Per errore, ad intervalli casuali il rumore cambia drasticamente.
+            </p>
+          `
+        }
+      };
+      
+      // Function to populate artwork modal content
+      function populateArtworkModal(scriptName) {
+        const info = artworkInfo[scriptName];
+        if (info) {
+          document.getElementById('artworkTitle').textContent = info.title;
+          document.getElementById('artworkContent').innerHTML = info.content;
+        }
+      }
+      
+      // Populate the modal content based on selected script
+      populateArtworkModal(selectedScript);
       
       // Dynamically load the selected script
       const scriptElement = document.createElement('script');

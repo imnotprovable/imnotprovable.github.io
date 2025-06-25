@@ -121,7 +121,7 @@
             font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
         }
 
-        .close {
+        .close,.close-art {
             color: #666;
             float: right;
             font-size: 32px;
@@ -210,7 +210,7 @@
 
     <div id="artworkModal" class="modal">
         <div class="modal-content">
-            <span class="close artwork-close">&times;</span>
+            <span class="close-art artwork-close">&times;</span>
             <h2 id="artworkTitle">About this Artwork</h2>
             <div id="artworkContent">
                 <!-- Content will be populated dynamically based on selected script -->
@@ -249,6 +249,7 @@
       const modal = document.getElementById('infoModal');
       const infoBtn = document.getElementById('infoBtn');
       const closeBtn = document.querySelector('.close');
+      const closeBtnArt = document.querySelector('.close-art');
       const artworkModal = document.getElementById('artworkModal');
       const reloadBtn = document.getElementById('reloadBtn');
       const artworkCloseBtn = document.querySelector('.artwork-close');
@@ -290,6 +291,13 @@
 
       // Close modal when X is clicked
       closeBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          modal.style.display = 'none';
+          document.body.style.overflow = ''; // Restore scrolling
+      });
+
+      // Close modal when X is clicked
+      closeBtnArt.addEventListener('click', function(e) {
           e.preventDefault();
           modal.style.display = 'none';
           document.body.style.overflow = ''; // Restore scrolling

@@ -40,8 +40,8 @@ function generateArt() {
     let n = int(width / size) - 1;
     let m = int(height / size) - 1;
     
-    let bound_fill = random() < 0.055 ? 77 : random(2, 15);
-    let bound_stroke = random() < 0.055 ? 65 : random(3, 20);
+    let bound_fill = random() < 0.075 ? 77 : random(2, 35);
+    let bound_stroke = random() < 0.075 ? 65 : random(3, 35);
 
     let rnd_bound_fill = random(1, bound_fill);
     let rnd_bound_stroke = random(1, bound_stroke);

@@ -41,8 +41,8 @@ function setup() {
     let gridSpacing = 12.0;
     config = {
         constellationSize: constellationSize,
-        gridRows: (windowHeight / (constellationSize + gridSpacing)) - 1,
-        gridCols: (windowWidth / (constellationSize + gridSpacing)) - 1,
+        gridRows: (windowHeight / (constellationSize + gridSpacing)),
+        gridCols: (windowWidth / (constellationSize + gridSpacing)),
         gridSpacing: gridSpacing,
         minStars: 4,
         maxStars: 45,
@@ -79,11 +79,11 @@ function generateConstellations() {
     const startX = (width - totalWidth - config.constellationSize - config.gridSpacing) + config.constellationSize - config.gridSpacing - (config.gridSpacing/2);
     const startY = (height - totalHeight - config.constellationSize + (config.gridSpacing * 1.5));*/
 
-    const totalWidth = config.gridCols * (config.constellationSize + (config.gridSpacing - 1));
-    const totalHeight = config.gridRows * (config.constellationSize + (config.gridSpacing - 1));
+    const totalWidth = config.gridCols * (config.constellationSize + config.gridSpacing) - config.gridSpacing;
+    const totalHeight = config.gridRows * (config.constellationSize + config.gridSpacing) - config.gridSpacing;
     
-    const startX = (width - totalWidth) - (config.constellationSize / 2) - config.gridSpacing;
-    const startY = (height - totalHeight) - (config.constellationSize / 2) - config.gridSpacing;
+    const startX = (width - totalWidth) + (config.gridSpacing / 2);
+    const startY = (height - totalHeight) - (config.gridSpacing / 2);
     
     // Create grid of constellations
     for (let row = 0; row < config.gridRows-1; row++) {
